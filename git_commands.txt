@@ -1,99 +1,110 @@
 GIT COMMANDS USED IN THIS ASSIGNMENT
-====================================
+Student: Sonali Biswal (2024EB01194)
+Repository: https://github.com/sonalibiswal10/Git-Practice
+=========================================================
 
 --- Step 1: Local Repository Setup ---
 
-mkdir my-website && cd my-website
-  Creates the project folder and moves into it (shell command, not Git).
+ls -a
+  Lists all files in the project folder, including hidden ones such as .gitignore.
 
 git init
   Initializes a new, empty Git repository in the current folder (creates the hidden .git directory).
 
 git branch -M main
-  Renames the current branch to "main" so the default branch name matches GitHub.
+  Renames the default branch from "master" to "main" to match GitHub's default.
 
-git config user.name "Your Name"
-git config user.email "you@example.com"
+git config user.name "Sonali Biswal"
+git config user.email "sonalibiswal1005@gmail.com"
   Sets the author name and email recorded on every commit in this repository.
-
---- Step 2: Git Workflow Execution ---
 
 git status
   Shows which files are untracked, modified, or staged for the next commit.
 
+--- Step 2: Git Workflow Execution ---
+
 git add index.html about.html
   Stages the two HTML files so they are included in the next commit.
 
-git commit -m "Initial commit: add index.html and about.html"
-  Records the staged snapshot as the first commit with a descriptive message.
+git commit -m "adding html files"
+  Records the staged files as the first (root) commit of the project.
 
 git add index.html
-git commit -m "Update index.html: add welcome message and navigation"
+git commit -m "updating index.html"
   Stages the modified index.html and records it as the second commit.
 
 git branch feature
   Creates a new branch named "feature" pointing at the current commit.
 
 git checkout feature
-  Switches the working directory to the "feature" branch (git switch feature does the same).
+  Switches the working directory to the "feature" branch.
 
 git add about.html
-git commit -m "Feature: add skills section to about.html"
-  Commits the change made on the feature branch; main is not affected.
+git commit -m "Adding skills"
+  Commits the Skills section added to about.html on the feature branch only; main is not affected.
 
 git checkout main
   Switches back to the main branch.
 
-git merge --no-ff feature -m "Merge branch 'feature' into main"
-  Merges the feature branch into main; --no-ff forces a merge commit so the branch is visible in history.
+git merge --no-ff feature -m "Merge branch feature into main"
+  Merges the feature branch into main; --no-ff forces a merge commit so the branch stays visible in history.
 
 git log --oneline --graph --all
-  Displays the full commit history as a compact graph showing all branches and the merge.
-
-git branch
-  Lists local branches and marks the current one with *.
+  Displays the full commit history as a compact graph showing both branches and the merge.
 
 --- Step 3: .gitignore Implementation ---
 
+cat .gitignore
+  Prints the .gitignore rules (*.log and temp/) to the terminal.
+
 git add .gitignore
-git commit -m "Add .gitignore to ignore .log files and temp/ folder"
+git commit -m "Add gitignore to ignore some files"
   Stages and commits the .gitignore file so the ignore rules are tracked.
 
+echo "test" > debug.log
+mkdir temp
+echo "scratch" > temp/notes.txt
+  Creates a .log file and a temp/ folder to test the ignore rules (shell commands).
+
+git status
+  Reports "working tree clean", proving debug.log and temp/ are not tracked.
+
 git status --ignored
-  Shows ignored files (e.g., debug.log, temp/) to prove the .gitignore rules work.
+  Lists debug.log and temp/ under "Ignored files", confirming the .gitignore rules work.
 
 --- Step 4: Undo Operation ---
 
+echo "<h1>Contact</h1>" > contact.html
 git add contact.html
-git commit -m "Add contact.html (to be undone)"
-  Makes an additional commit that will be undone.
+git commit -m "Add contact.html"
+  Creates and commits an extra file that will be undone.
+
+git log --oneline -3
+  Shows the last three commits, with "Add contact.html" at HEAD.
 
 git revert HEAD --no-edit
-  Undoes the last commit by creating a new commit that reverses its changes; history is preserved, so it is safe for shared/pushed branches.
+  Undoes the last commit by creating a new commit that reverses its changes; history is preserved, so it is safe for pushed branches.
 
-git log --oneline
-  Shows the history after the revert, with both the original commit and the "Revert" commit.
-
-(Alternative, not used: git reset --soft HEAD~1 / git reset --hard HEAD~1
-  Moves the branch pointer back one commit, removing it from history; --soft keeps changes staged, --hard discards them.)
+ls
+  Confirms contact.html has been removed from the working directory after the revert.
 
 --- Step 5: GitHub Integration ---
 
-git remote add origin https://github.com/<username>/my-website.git
+git remote add origin https://github.com/sonalibiswal10/Git-Practice.git
   Links the local repository to the empty public GitHub repository under the name "origin".
 
 git remote -v
-  Verifies the remote URL for fetch and push.
+  Verifies the remote URL used for fetch and push.
 
 git push -u origin main
   Uploads the main branch and all its commits to GitHub and sets origin/main as the upstream.
 
-git push origin feature
-  Pushes the feature branch too, so branch activity is visible on GitHub.
+git push -u origin feature
+  Pushes the feature branch so the branch activity is also visible on GitHub.
 
 --- Step 6: Documentation ---
 
 git add git_commands.txt
-git commit -m "Add git_commands.txt documenting all commands"
+git commit -m "Adding git_commands.txt documenting all commands"
 git push
   Commits this documentation file and pushes it to GitHub.
